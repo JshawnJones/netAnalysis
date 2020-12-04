@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"> 
+    <head>
+        <title>404</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    	<script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}" ></script>
+    	<script type="text/javascript" th:src="@{/js/script.js}" ></script>
+    	<script type="text/javascript" th:src="@{/js/stomp.min.js}" ></script>
+    	<script type="text/javascript" th:src="@{/js/sockjs.min.js}" ></script>
+    	<script type="text/javascript" th:src="@{/js/jquery-ui.js}" ></script>
+    	<script type="text/javascript" th:src="@{/js/html2canvas.js}" ></script>
+    	<link rel="stylesheet" type="text/css" th:href="@{/css/profile.css}"/>
+    	<link rel="stylesheet" type="text/css" th:href="@{/css/jquery-ui.css}"/>
+    </head>
+    <body>
+        <home id="homeLink">
+		</home>
+		<header>
+		    <form id="searchbox" class="searchbox">
+		        <input id="searchbar" type="text" placeholder="検索..">
+		        <button id="searchbutton" type="submit"></button>
+		    </form>
+		   
+		</header>
+		<profile>
+        <div id="dropdownContainer">
+        	<img  id="profilePic" class="profilePic" th:src="${profilePic}"></img >
+        	<div id="dropDownMenu" class="dropDownMenu displayNone">
+        		<div class="dropMenuPlaceholder"></div>
+			    <a id="profileLabel" href="/profile">プロファイル</a>
+			    <a id="logoutLabel" href="/logout">ログアウト</a>
+			    <div class="dropMenuPlaceholder"></div>
+			</div>
+        </div>
+        
+		</profile>
+        
+		<section>
+			<img id="profileMenuPic" th:src="${profilePic}" />
+			
+			<!-- The Modal -->
+			<div id="uploadModal" class="modal displayNone">
+				<!-- Modal content -->
+  				<div id="uploadModalContent" class="modal-content">
+					<form id="fileUploadForm" method="post" enctype="multipart/form-data" th:action="@{/fileupload}" >
+						
+						<input id="fileUploadFile"  type="file" name="file" />
+						<input id="fileUploadSubmit" type="submit" value="保存" />
+						
+					</form> 
+					 
+					<canvas id="profilePicPreview" class="displayNone"></canvas>
+					
+					<div id="cropContainer" class="displayNone">
+						<div id="icContainer" class="icContainer">
+							<img id="profilePiCrop" src="#" class="displayNone" />
+						</div>	
+					</div>
+					
+					
+				</div>
+			</div>
+			<br />
+			<form id="usernameForm" method="post" th:action="@{/profileName}" >
+
+				<input id="usernameP" onchange="profileName()" class="usernameP" type="text" th:placeholder="${username}" ></input>
+			</form> 
+    	</section>
+
+    </body>
+</html>

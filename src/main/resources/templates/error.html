@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"> 
+    <head>
+        <title>404</title>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/error.css}"/>
+    </head>
+    <body>
+       	<topleft></topleft>
+		<top></top>
+		<topright></topright>
+       <left></left>
+    	<middle id="imageContainer">
+    		<img id="labelImage" th:src="@{/images/404.jpg}" alt="404">
+	        <div style="color: white; text-align: center;">404 Not Found</div>
+	    </middle>
+    </body>
+</html>

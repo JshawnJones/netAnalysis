@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"> 
+    <head>
+        <title>404</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    	<script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}" ></script>
+    	<script type="text/javascript" th:src="@{/js/script.js}" ></script>
+    	<script type="text/javascript" th:src="@{/js/stomp.min.js}" ></script>
+    	<script type="text/javascript" th:src="@{/js/sockjs.min.js}" ></script>
+    	<link rel="stylesheet" type="text/css" th:href="@{/css/theme.css}"/>
+
+    </head>
+    <body>
+        <home id="homeLink">
+		</home>
+		<header>
+		    <form id="searchbox" class="searchbox">
+		        <input id="searchbar" type="text" placeholder="検索..">
+		        <button id="searchbutton" type="submit"></button>
+		    </form>
+		   
+		</header>
+		<profile>
+        
+        <div id="dropdownContainer">
+        	<img  id="profilePic" class="profilePic" th:src="${profilePic}"></img >
+        	<div id="dropDownMenu" class="dropDownMenu displayNone">
+        		<div class="dropMenuPlaceholder"></div>
+			    <a id="profileLabel" href="/profile">プロファイル</a>
+			    <a id="logoutLabel" href="/logout">ログアウト</a>
+			    <div class="dropMenuPlaceholder"></div>
+			</div>
+        </div>
+        
+		</profile>
+        
+        <nav>
+            
+		    <div id="fileNav">
+		
+		        <ul class="leftmenu" id="leftmenu">
+		            <li id="dashboard" class="menuoption">
+		               <a >計器盤</a>
+		            </li>
+		            <li id="Shortcut" class="menuoption">
+		               <a >サイト</a>
+		            </li>
+		            <li id="Network" class="menuoption">
+		               <a >ネットワーク</a>
+		            </li>
+		            <li th:if="${role == 'ADMIN'}" id="Logs" class="menuoption">
+		               <a >ログ</a>
+		            </li>
+		            <li id="Files"  class="menuoption">
+		               <a >ファイル</a>
+		            </li>
+		            <li id="Git" class="menuoption">
+		               <a >Git</a>
+		            </li>
+		            <li id="Settings" class="menuoption">
+		               <a >設定</a>
+		            </li>
+		        </ul>
+		    </div>
+		</nav>
+		
+		<section>
+		    <div id="dashboard_title">設定</div>
+		
+	
+
+    	</section>
+
+    </body>
+</html>

@@ -1,0 +1,85 @@
+body{
+    background-color: black;
+    display: grid;
+    grid-template-areas:
+    "topleft top topright"
+    "left middle right";
+    grid-template-rows: 3% 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    
+}
+
+.imageContainer{
+
+}
+
+.usernameLabel{
+    color: white;
+}
+
+.passLabel{
+    color: white;
+}
+
+.userContainer{
+    text-align: center;
+}
+
+.passContainer{
+    text-align: center;
+}
+
+.submitContainer{
+    text-align: center;
+}
+
+#labelImage{
+    width: 100%
+}
+
+#usernameInput{
+    background-color: black;
+    border: 2px solid white;
+    color: white;
+    padding: 15px 15px;
+    width: 50%;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+#passwordInput{
+    background-color: black;
+    border: 2px solid white;
+    color: white;
+    padding: 15px 15px;
+    width: 50%;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+
+#loginbtn{
+    background-color: black;
+    border: 2px solid white;
+    padding: 15px 75px;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+#loginbtn:hover{
+    cursor: pointer;
+    background-color: white;
+    color: black;
+    font-weight: bold;
+}
+
+.login_Error{
+	color: red;
+	text-align: center;
+}
+
+.logoutLabel{
+	color: white;
+	text-align: center;
+}

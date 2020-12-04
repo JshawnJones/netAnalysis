@@ -1,0 +1,273 @@
+body{
+    background-color: black;
+    display: grid;
+	grid-template-areas:
+    "home header profile"
+    "section section section";
+    /*grid-template-rows: 100px 1fr;*/
+    grid-template-rows: 10% 1fr;
+    grid-template-columns: 15% 1fr 100px;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+home{
+    grid-area: home;
+    /* background: #252830;*/
+    background-image: url("../images/404.jpg");
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border-bottom: white 2px solid;
+}
+
+home:hover{
+    cursor: pointer;
+}
+
+profile{
+    grid-area: profile;
+    border-bottom: white 2px solid;
+}
+
+
+header{
+    background: black;
+	grid-area: header;
+	padding: 0;
+    margin: 0;
+    border-bottom: white 2px solid;
+}
+
+
+.profilePic{
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 75px;
+    width: 75px;
+    border-radius: 50%;
+    margin-right: 20px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+
+section {
+	background: black;
+    grid-area: section;
+}
+
+
+#searchbox{
+    width: 100%;
+    text-align:center;
+    padding-top: 20px;
+}
+
+#searchbar{
+    width: 60%;
+    height: 40px;
+    background-color: #252830;
+    border: white 2px solid;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-family:"Raleway","Roboto","Helvetica",sans-serif;
+}
+
+#searchbutton{
+    cursor: pointer;
+    background-image: url("../images/search30px.PNG");
+    background-color: black;
+    border: none;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    margin-left: 10px;
+    margin-top: 5px;
+}
+
+
+#dropdownContainer{
+	position: relative;
+}
+
+#dropDownMenu{
+	border: 1px solid #CCC;
+    border-radius: 5px;
+	position: relative;
+  	background-color: #252830;;
+	right: 55%;
+	min-width: 140px;
+}
+
+#profileLabel, #logoutLabel{
+	color: white;
+	padding: 10px 16px;
+  	text-decoration: none;
+  	display: block;
+}
+.displayNone{
+	display: none;
+}
+
+.dropDownMenu a:hover {	
+	background-color: #1a1a1a;
+	cursor: pointer;
+    border-left: red 2px solid;
+}
+
+.dropMenuPlaceholder{
+    height: 10px;
+}
+
+.usernameP{
+	font-size: 30px;
+	background-color: black;
+    border: none;
+    color: white;
+    text-align: center;
+}
+
+.usernameP::placeholder {
+	color: white;
+}
+
+.usernameP:hover{
+	cursor: pointer;
+}
+
+.usernameP:focus {
+	font-size: 30px;
+	background-color: black;
+    border: none;
+    color: white;
+    text-align: left;
+}
+
+input:-internal-autofill-selected,
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus 
+{
+	font-size: 30px;
+	border: none;
+	-webkit-text-fill-color: white;
+	transition: background-color 5000s ease-in-out 0s;
+	text-align: left;
+}
+
+#usernameForm{
+	margin-left: auto;
+	margin-right: auto;
+    width: 300px;
+    display: table;
+}
+
+#profileMenuPic{
+	background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  	width: 300px;
+  	height: 300px;
+	border-radius: 50%;
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#profileMenuPic:hover {	
+	filter: brightness(50%);
+	cursor: pointer;
+}
+.center{
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.modal {
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+  background-color: black;
+  border: 2px solid white;
+  border-radius: 10px;
+  margin: auto;
+  padding: 20px;
+  width: 80%;
+  margin-bottom: 100px;
+}
+#fileUploadSubmit, #cancel{
+  background-color: black;
+  border: 2px solid white;
+  border-radius: 10px;
+  color: white;
+  padding: 15px 15px;
+}
+#fileUploadFile{
+  background-color: black;
+  border: 2px solid white;
+  border-radius: 10px;
+  color: white;
+  padding: 10px 15px;
+}
+#fileUploadSubmit:hover{
+    cursor: pointer;
+    background-color: white;
+    color: black;
+    font-weight: bold;
+}
+
+#cancel:hover{
+    cursor: pointer;
+    background-color: white;
+    color: black;
+    font-weight: bold;
+}
+
+
+.profilePicPreview{
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  	width: 300px;
+  	height: 300px;
+	display: inline-block;
+    vertical-align: top;
+}
+
+.cropContainer{
+    max-width: 800px;
+    display: inline-block;
+    margin-left: auto;
+}
+
+.profilePiCrop{
+	width: 100%;
+}
+
+.icContainer{
+	position: relative;
+}

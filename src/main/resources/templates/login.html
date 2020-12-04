@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+      <!-- <link rel="stylesheet" type="text/css" href="/login.css"> -->
+      <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}"/>
+    <head>
+        <title>404</title>
+    </head>
+    <body>
+    
+	    <topleft></topleft>
+		<top></top>
+		<topright></topright>
+		
+		<left></left>
+    	<middle id="imageContainer">
+    		<img id="labelImage" th:src="@{/images/404.jpg}" alt="404">
+	        <div class="login_Error" th:if="${param.error}">
+	            	*ユーザー名かパスワードは不正
+	        </div>
+	        <div class="logoutLabel" th:if="${param.logout}">
+	            	*ログアウトしました
+	        </div>
+	        <form th:action="@{/login}" method="post">
+	        	<div class="container" id="search">
+		            <div class="userContainer">
+		            	<input id="usernameInput" type="text" name="username" placeholder="ユーザー名"/>
+		            </div>
+		            <br>
+		            <div class="passContainer">
+						<input id="passwordInput" type="password" name="password" placeholder="パスワード"/>
+					</div>
+					<br>
+        			<br>
+		            <div class="submitContainer">
+		            	<input type="submit" id="loginbtn" name="login" value="ログイン"/>
+		            </div>
+	            </div>
+	        </form>
+	    </middle>
+		<right>
+
+		</right>
+    </body>
+</html>

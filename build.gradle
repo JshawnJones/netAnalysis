@@ -1,0 +1,37 @@
+plugins {
+	id 'org.springframework.boot' version '2.3.0.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+	id 'java'
+	id 'war'
+}
+
+group = 'com.jshawn'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile fileTree(dir: 'libs', include: ['spring-context-support-5.3.1.jar'])
+	compile fileTree(dir: 'libs', include: ['spring-boot-starter-data-jpa-2.4.0.jar'])
+	compile fileTree(dir: 'libs', include: ['spring-boot-starter-web-2.4.0.jar'])
+	compile fileTree(dir: 'libs', include: ['spring-boot-starter-websocket-2.4.0.jar'])
+	compile fileTree(dir: 'libs', include: ['spring-boot-starter-thymeleaf-2.4.0.jar'])
+	compile fileTree(dir: 'libs', include: ['spring-boot-starter-security-2.4.0.jar'])
+	compile fileTree(dir: 'libs', include: ['spring-security-web-5.4.2.jar'])
+	compile fileTree(dir: 'libs', include: ['spring-security-config-5.4.2.jar'])
+	compile fileTree(dir: 'libs', include: ['spring-boot-starter-mail-2.4.0.jar'])
+	compile fileTree(dir: 'libs', include: ['spring-security-test-5.4.2.jar'])
+	compile fileTree(dir: 'libs', include: ['oshi-core-5.2.2.jar'])
+	compile fileTree(dir: 'libs', include: ['commons-io-2.6.jar'])
+	compile fileTree(dir: 'libs', include: ['org.eclipse.jgit-5.9.0.202009080501-r.jar'])
+	runtimeOnly 'mysql:mysql-connector-java'
+	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+
+}
+
+test {
+	useJUnitPlatform()
+}

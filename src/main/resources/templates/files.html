@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"> 
+    <head>
+        <title>404</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    	<script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}" ></script>
+    	
+    	<script type="text/javascript" th:src="@{/js/stomp.min.js}" ></script>
+    	<script type="text/javascript" th:src="@{/js/sockjs.min.js}" ></script>
+    	<script type="text/javascript" th:src="@{/js/files.js}" ></script>
+    	<link rel="stylesheet" type="text/css" th:href="@{/css/files.css}"/>
+    </head>
+    <body>
+        <home id="homeLink">
+		</home>
+		<header>
+		    <form id="searchbox" class="searchbox">
+		        <input id="searchbar" type="text" placeholder="検索..">
+		        <button id="searchbutton" type="submit"></button>
+		    </form>
+		   
+		</header>
+		<profile>
+        
+        <div id="dropdownContainer">
+        	<img  id="profilePic" class="profilePic" th:src="${profilePic}"></img >
+        	<div id="dropDownMenu" class="dropDownMenu displayNone">
+        		<div class="dropMenuPlaceholder"></div>
+			    <a id="profileLabel" href="/profile">プロファイル</a>
+			    <a id="logoutLabel" href="/logout">ログアウト</a>
+			    <div class="dropMenuPlaceholder"></div>
+			</div>
+        </div>
+        
+		</profile>
+        
+        <nav>
+            
+		    <div id="fileNav">
+		
+		        <ul class="leftmenu" id="leftmenu">
+		            <li id="dashboard" class="menuoption">
+		               <a >計器盤</a>
+		            </li>
+		            <li id="Shortcut" class="menuoption">
+		               <a >サイト</a>
+		            </li>
+		            <li id="Network" class="menuoption">
+		               <a >ネットワーク</a>
+		            </li>
+		            <li th:if="${role == 'ADMIN'}" id="Logs" class="menuoption">
+		               <a >ログ</a>
+		            </li>
+		            <li id="Files"  class="menuoption">
+		               <a >ファイル</a>
+		            </li>
+		            <li id="Git" class="menuoption">
+		               <a >Git</a>
+		            </li>
+		            <li id="Settings" class="menuoption">
+		               <a >設定</a>
+		            </li>
+		        </ul>
+		    </div>
+		</nav>
+		
+		<section>
+
+		    <div id="dashboard_title">ファイル</div>
+		    
+			<ul id="fileExplorer" class="fileExplorer">
+				
+			</ul>
+			<div id="dragDropOverLay" class="displayNone">
+				<input id="fileUploadFileDragDrop" type="file" class="" name="dragdropfile" />
+			</div>
+    	</section>
+		<script th:inline="javascript">
+
+				$("body").on('dragenter', function(event) {
+					$("#dragDropOverLay").removeClass("displayNone");
+				});
+		
+				$("#dragDropOverLay").on('dragenter', function(event) {
+					
+					$("#dragDropOverLay").addClass("dragDropHover");
+				});
+				
+				$("#dragDropOverLay").on('dragleave', function(event) {
+					
+					$("#dragDropOverLay").removeClass("dragDropHover");
+					$("#dragDropOverLay").addClass("displayNone");
+				});
+				
+		    	var resultfiles = /*[[${files}]]*/ null;
+		    	var mainFolder = /*[[${mainFolder}]]*/ null;
+		    	
+		    	$("section").attr("filefolderpath", mainFolder);
+		    	var jsonresult = JSON.parse(resultfiles)[0];
+				
+		    	$.each(jsonresult, function(key,value) {
+
+		    		var filePathforMenu = escape(value.path);
+		    		
+		    		if(value.type == "folder"){
+		    			$("#fileExplorer").append("<li class='fileItem' filefoldername='"+key+"' " +
+								  "filefoldertype='"+value.type+"' filefolderpath='"+filePathforMenu+"'>"+
+				    				"<div class='fileIcon fileFolderIcon' filefolderpath='"+filePathforMenu+"' filefoldertype='"+value.type+"'></div>"+
+				    				"<div class='fileDetails' filefolderpath='"+filePathforMenu+"' filefoldertype='"+value.type+"'>"+
+				    					"<div class='fileName' filefolderpath='"+filePathforMenu+"' filefoldertype='"+value.type+"'>"+key+"</div>"+
+				    					"<div class='fileDiscription' filefolderpath='"+filePathforMenu+"' filefoldertype='"+value.type+"'>"+value.type+"</div>"+
+				    				"</div>"+
+				    			"</li>");
+		    		} else {
+		    			$("#fileExplorer").append("<li class='fileItem' filefoldername='"+key+"' " +
+								  "filefoldertype='"+value.type+"' filefolderpath='"+filePathforMenu+"'>"+
+				    				"<div class='fileIcon fileFileIcon' filefolderpath='"+filePathforMenu+"' filefoldertype='"+value.type+"'></div>"+
+				    				"<div class='fileDetails' filefolderpath='"+filePathforMenu+"' filefoldertype='"+value.type+"'>"+
+				    					"<div class='fileName' filefolderpath='"+filePathforMenu+"' filefoldertype='"+value.type+"'>"+key+"</div>"+
+				    					"<div class='fileDiscription' filefolderpath='"+filePathforMenu+"' filefoldertype='"+value.type+"'>"+value.type+"</div>"+
+				    				"</div>"+
+				    			"</li>");
+		    		}
+		    		
+				  
+				}); 
+		</script>
+		
+		<ul id="custom-menu" class='custom-menu'>
+		  <li data-action="info">Info</li>
+		  <li data-action="download" id="Download" class="displayNone" >Download</li>
+		  <li data-action="delete" id="delete" class="displayNone" >Delete</li>
+		  <li data-action="newFoler" id="newFolder" class="displayNone" >New Folder</li>
+		  <!-- <li id="uploadFile" class="displayNone" >Upload File</li> -->
+		  <form id="fileUploadForm" class="displayNone" method="post" enctype="multipart/form-data" th:action="@{/fileupload}" >
+		  	<input id="fileUploadFile"  type="file" name="file" />
+		  	<label id="fileUploadFileLabel" for="file">Upload File</label>
+		  </form> 
+		  
+		</ul>
+		
+		<!-- The Modal -->
+		<div id="Modal" class="modal displayNone">
+			<!-- Modal content -->
+ 			<div id="ModalContent" class="modal-content">
+				<label class="ModelLabel" >Name: </label>
+					<div id="ModalName" class="fileInfo"></div>
+					<br>
+				<label class="ModelLabel" >Path: </label>
+					<div id="ModalPath" class="fileInfo"></div>
+					<br>
+				<label class="ModelLabel" >Creation Time: </label>
+					<div id="ModalcreationTime" class="fileInfo"></div>
+					<br>
+				<label class="ModelLabel" >Last Access Time: </label>
+					<div id="ModallastAccessTime" class="fileInfo"></div>
+					<br>
+				<label class="ModelLabel" >Last Modified Time: </label>
+					<div id="ModallastModifiedTime" class="fileInfo"></div>
+					<br>
+				<label class="ModelLabel" >File type: </label>
+					<div id="ModalFileType" class="fileInfo"></div>
+					<br>
+				<label class="ModelLabel" >Size: </label>
+					<div id="ModalInfo" class="fileInfo"></div>
+					<br>
+			</div>
+		</div>
+		
+	
+		
+    </body>
+</html>

@@ -1,0 +1,599 @@
+body{
+    background-color: black;
+    display: grid;
+	grid-template-areas:
+    "home header profile"
+    "nav section section";
+    /*grid-template-rows: 100px 1fr;*/
+    grid-template-rows: 10% 1fr;
+    grid-template-columns: 15% 1fr 100px;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+home{
+    grid-area: home;
+    /*background: #252830;*/
+    background-image: url("../images/404.jpg");
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border-bottom: white 2px solid;
+}
+
+home:hover{
+    cursor: pointer;
+}
+profile{
+    grid-area: profile;
+    border-bottom: white 2px solid;
+}
+header{
+    background: black;
+	grid-area: header;
+	padding: 0;
+	margin: 0;
+	border-bottom: white 2px solid;
+}
+
+nav {
+	background: #252830;
+    grid-area: nav;
+    border-right: red 2px solid;
+}
+
+nav:hover{
+    overflow-y: scroll;
+    overflow-X: hidden;
+}
+
+nav::-webkit-scrollbar {
+    width: 7px;
+}
+ 
+nav::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+ 
+nav::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}
+
+
+.profilePic{
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 75px;
+    width: 75px;
+    border-radius: 50%;
+    margin-right: 20px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+
+section {
+	background: black;
+    grid-area: section;
+}
+
+.grid_container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 25px;
+    grid-auto-rows: auto;
+    margin: 25px;
+
+}
+.site_thumbnail{
+    background-color: #252830;
+    height: 300px;
+
+}
+
+.site_thumbnail:hover{
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+
+#searchbox{
+    width: 100%;
+    text-align:center;
+    padding-top: 20px;
+}
+
+#searchbar{
+    width: 60%;
+    height: 40px;
+    background-color: #252830;
+    border: white 2px solid;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-family:"Raleway","Roboto","Helvetica",sans-serif;
+}
+
+#searchbutton{
+    cursor: pointer;
+    background-image: url("../images/search30px.PNG");
+    background-color: black;
+    border: none;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    margin-left: 10px;
+    margin-top: 5px;
+}
+
+/* #usericon{
+    background-image: url("/assets/hatechan.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 75px;
+    width: 75px;
+    border-radius: 50%;
+    margin-right: 20px;
+    margin-top: 20px;
+    cursor: pointer;
+} */
+
+#fileNav{
+    
+}
+
+.category{
+    color: white;
+    height: 20px;
+    
+}
+
+.categoryname{
+    /* font-size: 25px; */
+    margin-top: 10px;
+    margin-left: 15px;
+    margin-bottom: -10px;
+}
+
+.folderitem{
+    cursor: pointer;
+    color: white;
+    /* background-color: #0f0f3d; */
+    height: 30px;
+}
+
+.folderitem:hover{
+    /* background-color: #666699; */
+    background-color: #0f0f3d;
+}
+
+.foldername{
+    margin: 0;
+    /* margin-left: 15px; */
+    font-weight: bold;
+}
+
+#leftmenu{
+    /*width: 250px;*/
+    list-style: none;
+    margin-top: 5px;
+    padding: 0;
+}
+
+.leftmenu a{
+    color: #fff;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+.leftmenu li{
+    text-indent: 15px;
+    line-height: 40px;
+}
+
+.leftmenu li:hover{
+    color: #fff;
+    background-color: #1a1a1a;
+    cursor: pointer;
+    border-left: red 2px solid;
+}
+
+.selecteditem{
+    color: #fff;
+    background-color: #1a1a1a;
+    cursor: pointer;
+    border-left: red 2px solid;
+}
+
+.hide{
+    display:none;
+}
+
+.show{
+    display: block;
+}
+
+
+.dashboard_main{
+    list-style: none;
+    margin: 0;
+    padding: 0; 
+    overflow: hidden;
+}
+
+.dashboard_machines{
+    color: white;
+    list-style: none;
+    width: 300px;
+    height: 75px;
+    margin: 5px;
+    padding: 0px;
+    float: left;
+    background-color: #16161d;
+    border-radius: 0 0.25rem 0 0.25rem;
+}
+
+.dashboard_details{
+    list-style: none;
+}
+
+
+.hostname, .status, .address{
+    clear: both;
+    
+}
+
+.hostname_title, .host_data_name, .status_title, .host_data_signal, .address_title, .host_data_data{
+    float: left;
+}
+
+.OK{
+    color: #2080c0;
+}
+
+.OFFLINE{
+    color: #c02030;
+}
+
+.host_data_name, .host_data_signal, .host_data_data{
+    font-weight: bold;
+}
+
+.dashboard_main .dashboard_machines:not(.fail):hover {
+    background: #201818;
+    box-shadow: inset 0 0 0 1px #2080c0, 0.25rem 0 0 0 #2080c0;
+}
+
+.fail {
+    animation: alertblink 0.8s ease-in-out infinite;
+}
+
+.fail:hover {
+    background: #201818;
+    box-shadow: inset 0 0 0 1px #c02030, 0.25rem 0 0 0 #c02030;
+    animation: none;
+}
+
+
+.host_data_name{
+    color: white;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+.host_data_name:hover{
+    color: #666666;
+    text-decoration: underline;
+}
+
+@keyframes alertblink{
+    0% {
+        background: #201818;
+        box-shadow: inset 0 0 2rem -1rem rgba(192, 32, 48, 0), 0.05px 0 0 #c02030;
+    }
+
+    50% {
+        background: #201818;
+        box-shadow: inset 0 0 1rem -0.5rem #c02030, 0.25rem 0 0 #c02030;
+    }
+
+    100% {
+        background: #201818;
+        box-shadow: inset 0 0 2rem -1rem rgba(192, 32, 48, 0), 0.05px 0 0 #c02030;
+    }
+}
+
+#dashboard_title, #sites_title{
+    color: white;
+    font-weight: bold;
+}
+
+#dropdownContainer{
+	position: relative;
+}
+
+#dropDownMenu{
+	border: 1px solid #CCC;
+    border-radius: 5px;
+	position: relative;
+  	background-color: #252830;;
+	right: 55%;
+	min-width: 140px;
+}
+
+#profileLabel, #logoutLabel{
+	color: white;
+	padding: 10px 16px;
+  	text-decoration: none;
+  	display: block;
+}
+
+.displayNone{
+	display: none;
+}
+
+.dropDownMenu a:hover {	
+	background-color: #1a1a1a;
+	cursor: pointer;
+    border-left: red 2px solid;
+}
+
+.dropMenuPlaceholder{
+    height: 10px;
+}
+
+#send{
+	background-color: black;
+    border: 2px solid white;
+    padding: 6px 30px;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+    width: 110px;
+    font-size: 16px;
+}
+
+#send:hover {	
+	cursor: pointer;
+    background-color: white;
+    color: black;
+    font-weight: bold;
+}
+
+.addAccount{
+	background-color: black;
+    border: 2px solid white;
+    padding: 6px 30px;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+    width: 115px;
+}
+
+.addAccount:hover {	
+	cursor: pointer;
+    background-color: white;
+    color: black;
+    font-weight: bold;
+}
+
+.closeaddAccount{
+	background-color: white;
+    border: 2px solid white;
+    padding: 6px 30px;
+    color: black;
+    font-weight: bold;
+    border-radius: 10px;
+    width: 115px;
+}
+
+.closeaddAccount:hover {	
+	cursor: pointer;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+}
+
+.emailRegistration{
+	background-color: black;
+    border: 2px solid white;
+    color: white;
+    padding: 15px 15px;
+    width: 25%;
+    border-radius: 10px;
+    font-weight: bold;
+}
+.usernameRegistration{
+	background-color: black;
+    border: 2px solid white;
+    color: white;
+    padding: 15px 15px;
+    width: 25%;
+    border-radius: 10px;
+    font-weight: bold;
+}
+.sendButton{
+	background-color: black;
+    border: 2px solid white;
+    padding: 11px 25px;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+    width: 40px;
+    display: inline;
+}
+
+.sendButton:hover {	
+	cursor: pointer;
+    background-color: white;
+    color: black;
+    font-weight: bold;
+}
+
+.netsend{
+	background-color: black;
+    border: 2px solid white;
+    padding: 15px 30px;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+    margin-left: 1%;
+    margin-top: 1%;
+}
+
+.netsend:hover{
+    cursor: pointer;
+    background-color: white;
+    color: black;
+    font-weight: bold;
+}
+
+.netdisabled{
+	background-color: white;
+	border: 2px solid white;
+	border-radius: 10px;
+	padding: 15px 30px;
+    color: black;
+    font-weight: bold;
+    margin-left: 1%;
+    margin-top: 1%;
+}
+
+.netdisabled:hover{
+	cursor: pointer;
+	background-color: black;
+    color: white;
+}
+
+#coreList{
+	padding: 0px;
+    list-style: none;
+    margin-left: 1%;
+}
+
+#cpuoutput{
+	background-color: black;
+    border: 2px solid white;
+    color: white;
+    width: 400px;
+    /*height: 250px;*/
+    height: 295px;
+}
+
+.line {
+	stroke: #0072c6;
+	stroke-width: 3px;
+	fill: #0077cc;
+	fill-opacity: 0.2;
+	vector-effect: non-scaling-stroke;
+}
+
+#cpuload{
+	color: white;
+	font-weight: bold;
+}
+
+.cpucoreOutput{
+	background-color: black;
+    border: 2px solid white;
+    color: white;
+    width: 200px;
+    height: 125px;
+}
+
+.cpuCoreLoad{
+	color: white;
+	font-weight: bold;
+}
+
+#core1output, #core2output, #core3output, #core4output, #core5output, #core6output, #core7output, #core8output{
+	background-color: black;
+    border: 2px solid white;
+    color: white;
+    width: 200px;
+    height: 125px;
+    
+}
+
+#virmemload, #phymemload, #cpuCore1load, #cpuCore2load, #cpuCore3load, #cpuCore4load, #cpuCore5load, #cpuCore6load, #cpuCore7load, #cpuCore8load{
+	color: white;
+	font-weight: bold;
+}
+
+.coreItem{
+	float: left;
+	margin: 5px;
+}
+
+.redline {
+	stroke: #ff0000;
+	stroke-width: 3px;
+	fill: #ff0000;
+	fill-opacity: 0.2;
+	vector-effect: non-scaling-stroke;
+}
+
+#memList{
+	list-style: none;
+	margin-left: -35px;
+	clear: both;
+}
+.memItem{
+	float: left;
+    width: 45%;
+    margin: 5px;
+}
+
+#virmemload, #phymemload{
+	color: white;
+	font-weight: bold;
+}
+
+#virtualMemOutput, #physicalMemOutput{
+	background-color: black;
+    border: 2px solid white;
+    color: white;
+    width: 100%;
+    height: 125px;
+}
+
+.logitem{
+	color: white;
+}
+
+.storageUsageGraph{
+	margin-left: 1%;
+}
+
+.storageName, .storageUsage{
+	clear: both;
+	color: white;
+	font-weight: bold;
+	margin-left: 1%;
+}
+
+.storageUsed{
+	background-color: black;
+    border: 2px solid white;
+    padding: 15px 30px;
+    color: white;
+    font-weight: bold;
+}
+
+.storageList{
+	list-style: none;
+	clear: both;
+    padding: 0;
+}
+
+.storageItem{
+	clear: both;
+}

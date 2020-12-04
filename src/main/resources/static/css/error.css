@@ -1,0 +1,14 @@
+body{
+    background-color: black;
+    display: grid;
+    grid-template-areas:
+    "topleft top topright"
+    "left middle right";
+    grid-template-rows: 3% 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+#logo{
+	background-image: url("../images/404.jpg");
+    width: 100%
+}

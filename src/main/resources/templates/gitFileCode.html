@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"> 
+    <head>
+        <title>404</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    	<script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}" ></script>
+    	
+    	<script type="text/javascript" th:src="@{/js/stomp.min.js}" ></script>
+    	<script type="text/javascript" th:src="@{/js/sockjs.min.js}" ></script>
+    	<script type="text/javascript" th:src="@{/js/git.js}" ></script>
+    	<link rel="stylesheet" type="text/css" th:href="@{/css/gitlist.css}"/>
+		<link rel="stylesheet" type="text/css" th:href="@{/theme/abcdef.css}"/>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/codemirror.css}"/>
+		<script type="text/javascript" th:src="@{/js/codemirror.js}" ></script>
+		<script type="text/javascript" th:src="@{/mode/javascript/javascript.js}" ></script>
+    </head>
+    <body>
+        <home id="homeLink">
+		</home>
+		<header>
+		    <form id="searchbox" class="searchbox">
+		        <input id="searchbar" type="text" placeholder="検索..">
+		        <button id="searchbutton" type="submit"></button>
+		    </form>
+		   
+		</header>
+		<profile>
+        
+        <div id="dropdownContainer">
+        	<img  id="profilePic" class="profilePic" th:src="${profilePic}"></img >
+        	<div id="dropDownMenu" class="dropDownMenu displayNone">
+        		<div class="dropMenuPlaceholder"></div>
+			    <a id="profileLabel" href="/profile">プロファイル</a>
+			    <a id="logoutLabel" href="/logout">ログアウト</a>
+			    <div class="dropMenuPlaceholder"></div>
+			</div>
+        </div>
+        
+		</profile>
+        
+        <nav>
+            
+		    <div id="fileNav">
+		
+		        <ul class="leftmenu" id="leftmenu">
+		            <li id="dashboard" class="menuoption">
+		               <a >計器盤</a>
+		            </li>
+		            <li id="Shortcut" class="menuoption">
+		               <a >サイト</a>
+		            </li>
+		            <li id="Network" class="menuoption">
+		               <a >ネットワーク</a>
+		            </li>
+		            <li th:if="${role == 'ADMIN'}" id="Logs" class="menuoption">
+		               <a >ログ</a>
+		            </li>
+		            <li id="Files"  class="menuoption">
+		               <a >ファイル</a>
+		            </li>
+		            <li id="Git" class="menuoption">
+		               <a >Git</a>
+		            </li>
+		            <li id="Settings" class="menuoption">
+		               <a >設定</a>
+		            </li>
+		        </ul>
+		    </div>
+		</nav>
+		
+		<section>
+			
+			<div id="breadCrumb">
+				<div id="gitTitle" class="gitTitle ">git</div>
+			</div>
+			<ul>
+				<li class="repoOptionsLinks gitCodeLink">コード</li>
+				<li class="repoOptionsLinks shortcutBorder gitCommitsLink">コミット履歴</li>
+				<li class="repoOptionsLinks shortcutBorder pullRequestsLink">コミット比較</li>
+			</ul>
+			
+			<select id="branchesList" class="branchesList">
+			</select >
+			
+			<div id="fileCode" ></div>
+    	</section>
+    	
+		<script th:inline="javascript">
+
+			var $repoTitle = /*[[${repoTitle}]]*/ null;
+			var $fileCode = /*[[${fileCode}]]*/ null;
+			var $repolinkvalue = $repoTitle.split("\\")[0];
+			var $repoBranches = /*[[${repoBranches}]]*/ null;
+			var $selectedBranch = /*[[${selectedBranch}]]*/ null;
+			
+			var jsonrepoBranches = JSON.parse($repoBranches)[0];
+			$.each(jsonrepoBranches, function(key,value) {
+				$("#branchesList").append("<option  class='repobranch' value='"+value.base64+"' "+
+						">"+value.branch+"</option >");
+			});
+			
+			$("#branchesList").val($selectedBranch);
+			$(".repositoryTitle").text($repoTitle);
+			
+			
+			var $repobreadCrumbs = $repoTitle.split("/");
+
+			for(var j = 0; j < $repobreadCrumbs.length; j++){
+				$("#breadCrumb").append("<div class='commitsBreadCrumblink'>/</div>");
+				
+				var $cleanLink = $repoTitle.split($repobreadCrumbs[j])[0].replace("\\","/");
+				var $fulllink = "/git/code/"+ $selectedBranch + "/"+ $cleanLink + $repobreadCrumbs[j];
+				var $main = ""; 
+				if(j == 0){
+					$main = "mainlink"; 
+				} else {
+					$main = ""; 
+				}
+				$("#breadCrumb").append("<a href='"+$fulllink+"' class='breadCrumblink "+$main+"'>"+$repobreadCrumbs[j]+"</a>");
+				
+			}
+			
+			$(".gitCodeLink").attr("gitValue", $repoTitle.split("/")[0]);
+			$(".gitCodeLink").attr("branch", $selectedBranch);
+			$(".gitCommitsLink").attr("repoName", $repoTitle.split("/")[0]);
+			$(".gitCommitsLink").attr("branch", $selectedBranch);
+			$(".pullRequestsLink").attr("repoName", $repoTitle.split("/")[0]);
+			$(".pullRequestsLink").attr("branch", $selectedBranch);
+			
+			var displayCode = "";
+			$.each($fileCode, function(line, value) {
+				displayCode = displayCode + value + "\n";
+			});
+			
+			var myCodeMirror = CodeMirror(document.getElementById("fileCode"), {
+		          value: displayCode,
+		          mode: "javascript",
+		          theme: "abcdef",
+		          lineNumbers: true,
+		          lineWrapping: true
+		      });
+			$("#fileCode").css( 'pointer-events', 'none' );
+		</script>
+    </body>
+</html>

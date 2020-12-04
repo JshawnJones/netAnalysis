@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"> 
+    <head>
+        <title>404</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    	<script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}" ></script>
+    	<script type="text/javascript" th:src="@{/js/newprofile.js}" ></script>
+    	<script type="text/javascript" th:src="@{/js/stomp.min.js}" ></script>
+    	<script type="text/javascript" th:src="@{/js/sockjs.min.js}" ></script>
+    	<script type="text/javascript" th:src="@{/js/jquery-ui.js}" ></script>
+    	<script type="text/javascript" th:src="@{/js/html2canvas.js}" ></script>
+    	<link rel="stylesheet" type="text/css" th:href="@{/css/newprofile.css}"/>
+    	<link rel="stylesheet" type="text/css" th:href="@{/css/jquery-ui.css}"/>
+    </head>
+    <body>
+        <home >
+		</home>
+		<header>
+		    
+		</header>
+		<profile>
+        
+		</profile>
+        
+		<section>
+			<canvas id="profileMenuPic" ></canvas>
+			<!-- The Modal -->
+			<div id="uploadModal" class="modal displayNone">
+				<!-- Modal content -->
+  				<div id="uploadModalContent" class="modal-content">
+					<div	id="fileUploadForm">
+						<input id="fileUploadFile"  type="file" name="file" />
+						<div id="confirmImage">OK</div>
+					</div>
+					 
+					<canvas id="profilePicPreview" class="displayNone"></canvas>
+					
+					<div id="cropContainer" class="displayNone">
+						<div id="icContainer" class="icContainer">
+							<img id="profilePiCrop" src="#" class="displayNone" />
+						</div>	
+					</div>
+					
+					
+					
+				</div>
+			</div>
+			<br />
+			
+			<div id="usernameForm">
+				<input id="usernameP" class="usernameP" name="usernameP" type="text" placeholder="ユーザー名入力" ></input>
+				<input id="userPass" class="userPass" name="userPass" type="password" placeholder="パスワード入力" ></input>
+				<input id="userPass2" class="userPass2" name="userPass2" type="password" placeholder="パスワード再入力" ></input>
+				<button id="usernameSubmit" onclick="addUser()" >登録</button> 
+				
+			</div>
+    	</section>
+
+    </body>
+</html>

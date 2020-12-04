@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"> 
+    <head>
+        <title>404</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    	<script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}" ></script>
+    	<script type="text/javascript" th:src="@{/js/script.js}" ></script>
+    	<script type="text/javascript" th:src="@{/js/stomp.min.js}" ></script>
+    	<script type="text/javascript" th:src="@{/js/sockjs.min.js}" ></script>
+    	<link rel="stylesheet" type="text/css" th:href="@{/css/theme.css}"/>
+
+    </head>
+    <body>
+        <home id="homeLink">
+		</home>
+		<header>
+		    <form id="searchbox" class="searchbox">
+		        <input id="searchbar" type="text" placeholder="検索..">
+		        <button id="searchbutton" type="submit"></button>
+		    </form>
+		   
+		</header>
+		<profile>
+        
+        <div id="dropdownContainer">
+        	<img  id="profilePic" class="profilePic" th:src="${profilePic}"></img >
+        	<div id="dropDownMenu" class="dropDownMenu displayNone">
+        		<div class="dropMenuPlaceholder"></div>
+			    <a id="profileLabel" >プロファイル</a>
+			    <a id="logoutLabel" >ログアウト</a>
+			    <div class="dropMenuPlaceholder"></div>
+			</div>
+        </div>
+        
+		</profile>
+        
+        <nav>
+            
+		    <div id="fileNav">
+		
+		        <ul class="leftmenu" id="leftmenu">
+		           <li id="dashboard" class="menuoption">
+		               <a >計器盤</a>
+		            </li>
+		            <li id="Shortcut" class="menuoption">
+		               <a >サイト</a>
+		            </li>
+		            <li id="Network" class="menuoption">
+		               <a >ネットワーク</a>
+		            </li>
+		            <li th:if="${role == 'ADMIN'}" id="Logs" class="menuoption">
+		               <a >ログ</a>
+		            </li>
+		            <li id="Files"  class="menuoption">
+		               <a >ファイル</a>
+		            </li>
+		            <li id="Git" class="menuoption">
+		               <a >Git</a>
+		            </li>
+		            <li id="Settings" class="menuoption">
+		               <a >設定</a>
+		            </li>
+		        </ul>
+		    </div>
+		</nav>
+		
+		<section>
+		    
+	<div id="dashboard_container" class="dashboard_container">
+        <div id="dashboard_title">計器盤</div>
+        <form class="form-inline">
+        	<button id="send" class="btn btn-default" type="submit">Scan</button>
+        </form>
+        <ul id="dashboard_main" class="dashboard_main"> 
+            <li class="dashboard_machines">
+                <ul class="dashboard_details">
+                    <li class="hostname">
+                        <div class="hostname_title">Hostname:　</div>
+                        <a href="#" class="host_data_name">[[${#httpServletRequest.remoteUser}]]</a>
+                    </li>
+                    <li class="status">
+                        <div class="status_title">ステータス:　</div>
+                        <div class="host_data_signal OK">OK</div>
+                    </li>
+                    <li class="address">
+                        <div class="address_title">Address:　</div>
+                        <div id="currentUserIP" class="host_data_data">[[${#httpServletRequest.remoteAddr}]]</div>
+                    </li>
+                </ul>
+            </li>
+
+        </ul>
+	</div> 	
+	
+	<div th:if="${role == 'ADMIN'}" id="addAccount" class="addAccount" onclick="showAddAccount()">アカウント追加</div>
+	
+	<form th:if="${role == 'ADMIN'}" id="userRegistration" class="userRegistration displayNone" method="post" th:action="@{/userRegistration}" >
+		<input th:if="${role == 'ADMIN'}" id="emailRegistration" class="emailRegistration displayNone" type="text"  placeholder="メール"></input>
+		<div th:if="${role == 'ADMIN'}" id="sendButton" class="sendButton displayNone" onclick="addEmailAccount()">送信</div>
+	</form> 
+
+		<div id="netsendForm">
+        	<button id="netsend" class="netsend" type="submit" >Server Info</button>
+        	<button id="netdisconnect" class="netdisabled displayNone" type="submit" disabled="disabled">Disconnect
+            </button>
+        </div>
+
+		<ul id="coreList" class="coreList"> 
+	        <li class="coreItem">
+		        <div id="cpuload">CPU Load: </div>
+		        <svg  id="cpuoutput">
+		        	<polyline id="cpuLine" class="line" points="00,295 20,295 40,295 60,295 80,295 100,295 120,295 140,295 160,295 180,295 200,295 220,295 240,295 260,295 280,295 300,295 320,295 340,295 360,295 380,295 400,295"/>
+		        	<defs>
+					    <pattern id="smallGrid" width="13" height="13" patternUnits="userSpaceOnUse">
+					      <path d="M 13 0 L 0 0 0 13" fill="none" stroke="gray" stroke-width="0.5"/>
+					    </pattern>
+					    <pattern id="grid" width="130" height="130" patternUnits="userSpaceOnUse">
+					      <rect width="130" height="130" fill="url(#smallGrid)"/>
+					      <path d="M 130 0 L 0 0 0 130" fill="none" stroke="gray" stroke-width="1"/>
+					    </pattern>
+					  </defs>
+					
+					  <rect width="100%" height="100%" fill="url(#grid)" />
+		
+		        </svg >
+        	</li>
+        	<li class="coreItem">
+            
+	        	<div id="cpuCore1load">Core 1: </div>
+	        	<svg  id="core1output">
+					<polyline id="cpuLine1" class="line" points="00,125 10,125 20,125 30,125 40,125 50,125 60,125 70,125 80,125 90,125 100,125 110,125 120,125 130,125 140,125 150,125 160,125 170,125 180,125 190,125 200,125"/>
+					<defs>
+				    <pattern id="smallGrid" width="13" height="13" patternUnits="userSpaceOnUse">
+				      <path d="M 13 0 L 0 0 0 13" fill="none" stroke="gray" stroke-width="0.5"/>
+				    </pattern>
+				    <pattern id="grid" width="130" height="130" patternUnits="userSpaceOnUse">
+				      <rect width="130" height="130" fill="url(#smallGrid)"/>
+				      <path d="M 130 0 L 0 0 0 130" fill="none" stroke="gray" stroke-width="1"/>
+				    </pattern>
+				  </defs>
+				
+				  <rect width="100%" height="100%" fill="url(#grid)" />
+					        
+	        	</svg >
+        	</li>
+        	<li class="coreItem">
+	        	<div id="cpuCore2load">Core 2: </div>
+	        	<svg  id="core2output">
+					<polyline id="cpuLine2" class="line" points="00,125 10,125 20,125 30,125 40,125 50,125 60,125 70,125 80,125 90,125 100,125 110,125 120,125 130,125 140,125 150,125 160,125 170,125 180,125 190,125 200,125"/>
+					<defs>
+				    <pattern id="smallGrid" width="13" height="13" patternUnits="userSpaceOnUse">
+				      <path d="M 13 0 L 0 0 0 13" fill="none" stroke="gray" stroke-width="0.5"/>
+				    </pattern>
+				    <pattern id="grid" width="130" height="130" patternUnits="userSpaceOnUse">
+				      <rect width="130" height="130" fill="url(#smallGrid)"/>
+				      <path d="M 130 0 L 0 0 0 130" fill="none" stroke="gray" stroke-width="1"/>
+				    </pattern>
+				  </defs>
+				
+				  <rect width="100%" height="100%" fill="url(#grid)" />
+					        
+	        	</svg >
+        	</li>
+        	<li class="coreItem">
+        	
+	        	<div id="cpuCore3load">Core 3: </div>
+	        	<svg  id="core3output">
+					<polyline id="cpuLine3" class="line" points="00,125 10,125 20,125 30,125 40,125 50,125 60,125 70,125 80,125 90,125 100,125 110,125 120,125 130,125 140,125 150,125 160,125 170,125 180,125 190,125 200,125"/>
+					<defs>
+				    <pattern id="smallGrid" width="13" height="13" patternUnits="userSpaceOnUse">
+				      <path d="M 13 0 L 0 0 0 13" fill="none" stroke="gray" stroke-width="0.5"/>
+				    </pattern>
+				    <pattern id="grid" width="130" height="130" patternUnits="userSpaceOnUse">
+				      <rect width="130" height="130" fill="url(#smallGrid)"/>
+				      <path d="M 130 0 L 0 0 0 130" fill="none" stroke="gray" stroke-width="1"/>
+				    </pattern>
+				  </defs>
+				
+				  <rect width="100%" height="100%" fill="url(#grid)" />
+					        
+	        	</svg >
+        	</li>
+        	
+        	<li class="coreItem">
+	        	<div id="cpuCore4load">Core 4: </div>
+	        	<svg  id="core4output">
+					<polyline id="cpuLine4" class="line" points="00,125 10,125 20,125 30,125 40,125 50,125 60,125 70,125 80,125 90,125 100,125 110,125 120,125 130,125 140,125 150,125 160,125 170,125 180,125 190,125 200,125"/>
+					<defs>
+				    <pattern id="smallGrid" width="13" height="13" patternUnits="userSpaceOnUse">
+				      <path d="M 13 0 L 0 0 0 13" fill="none" stroke="gray" stroke-width="0.5"/>
+				    </pattern>
+				    <pattern id="grid" width="130" height="130" patternUnits="userSpaceOnUse">
+				      <rect width="130" height="130" fill="url(#smallGrid)"/>
+				      <path d="M 130 0 L 0 0 0 130" fill="none" stroke="gray" stroke-width="1"/>
+				    </pattern>
+				  </defs>
+				
+				  <rect width="100%" height="100%" fill="url(#grid)" />
+					        
+	        	</svg >
+        	</li>
+        	
+        	<li class="coreItem">
+	        	<div id="cpuCore5load">Core 5: </div>
+	        	<svg  id="core5output">
+					<polyline id="cpuLine5" class="line" points="00,125 10,125 20,125 30,125 40,125 50,125 60,125 70,125 80,125 90,125 100,125 110,125 120,125 130,125 140,125 150,125 160,125 170,125 180,125 190,125 200,125"/>
+					<defs>
+				    <pattern id="smallGrid" width="13" height="13" patternUnits="userSpaceOnUse">
+				      <path d="M 13 0 L 0 0 0 13" fill="none" stroke="gray" stroke-width="0.5"/>
+				    </pattern>
+				    <pattern id="grid" width="130" height="130" patternUnits="userSpaceOnUse">
+				      <rect width="130" height="130" fill="url(#smallGrid)"/>
+				      <path d="M 130 0 L 0 0 0 130" fill="none" stroke="gray" stroke-width="1"/>
+				    </pattern>
+				  </defs>
+				
+				  <rect width="100%" height="100%" fill="url(#grid)" />
+					        
+	        	</svg >
+        	</li>
+        	
+        	<li class="coreItem">
+	        	<div id="cpuCore6load">Core 6: </div>
+	        	<svg  id="core6output">
+					<polyline id="cpuLine6" class="line" points="00,125 10,125 20,125 30,125 40,125 50,125 60,125 70,125 80,125 90,125 100,125 110,125 120,125 130,125 140,125 150,125 160,125 170,125 180,125 190,125 200,125"/>
+					<defs>
+				    <pattern id="smallGrid" width="13" height="13" patternUnits="userSpaceOnUse">
+				      <path d="M 13 0 L 0 0 0 13" fill="none" stroke="gray" stroke-width="0.5"/>
+				    </pattern>
+				    <pattern id="grid" width="130" height="130" patternUnits="userSpaceOnUse">
+				      <rect width="130" height="130" fill="url(#smallGrid)"/>
+				      <path d="M 130 0 L 0 0 0 130" fill="none" stroke="gray" stroke-width="1"/>
+				    </pattern>
+				  </defs>
+				
+				  <rect width="100%" height="100%" fill="url(#grid)" />
+					        
+	        	</svg >
+        	</li>
+        	
+        	<li class="coreItem">
+	        	<div id="cpuCore7load">Core 7: </div>
+	        	<svg  id="core7output">
+					<polyline id="cpuLine7" class="line" points="00,125 10,125 20,125 30,125 40,125 50,125 60,125 70,125 80,125 90,125 100,125 110,125 120,125 130,125 140,125 150,125 160,125 170,125 180,125 190,125 200,125"/>
+					<defs>
+				    <pattern id="smallGrid" width="13" height="13" patternUnits="userSpaceOnUse">
+				      <path d="M 13 0 L 0 0 0 13" fill="none" stroke="gray" stroke-width="0.5"/>
+				    </pattern>
+				    <pattern id="grid" width="130" height="130" patternUnits="userSpaceOnUse">
+				      <rect width="130" height="130" fill="url(#smallGrid)"/>
+				      <path d="M 130 0 L 0 0 0 130" fill="none" stroke="gray" stroke-width="1"/>
+				    </pattern>
+				  </defs>
+				
+				  <rect width="100%" height="100%" fill="url(#grid)" />
+					        
+	        	</svg >
+        	</li>
+        	
+        	<li class="coreItem">
+	        	<div id="cpuCore8load">Core 8: </div>
+	        	<svg  id="core8output">
+					<polyline id="cpuLine8" class="line" points="00,125 10,125 20,125 30,125 40,125 50,125 60,125 70,125 80,125 90,125 100,125 110,125 120,125 130,125 140,125 150,125 160,125 170,125 180,125 190,125 200,125"/>
+					<defs>
+				    <pattern id="smallGrid" width="13" height="13" patternUnits="userSpaceOnUse">
+				      <path d="M 13 0 L 0 0 0 13" fill="none" stroke="gray" stroke-width="0.5"/>
+				    </pattern>
+				    <pattern id="grid" width="130" height="130" patternUnits="userSpaceOnUse">
+				      <rect width="130" height="130" fill="url(#smallGrid)"/>
+				      <path d="M 130 0 L 0 0 0 130" fill="none" stroke="gray" stroke-width="1"/>
+				    </pattern>
+				  </defs>
+				
+				  <rect width="100%" height="100%" fill="url(#grid)" />
+					        
+	        	</svg >
+        	</li>
+		</ul>
+		
+		
+		<ul id="memList" class="memList">
+	        <li class="memItem">
+	        <div id="phymemload">Physical Memory: </div>
+		        <svg  id="physicalMemOutput">
+		        	<polyline id="physicalMemLine" class="redline" points=""/>
+		        	<defs>
+				    <pattern id="smallGrid" width="13" height="13" patternUnits="userSpaceOnUse">
+				      <path d="M 13 0 L 0 0 0 13" fill="none" stroke="gray" stroke-width="0.5"/>
+				    </pattern>
+				    <pattern id="grid" width="130" height="130" patternUnits="userSpaceOnUse">
+				      <rect width="130" height="130" fill="url(#smallGrid)"/>
+				      <path d="M 130 0 L 0 0 0 130" fill="none" stroke="gray" stroke-width="1"/>
+				    </pattern>
+				  </defs>
+				
+				  <rect width="100%" height="100%" fill="url(#grid)" />
+		        </svg >
+	        </li>
+	        
+	        <li class="memItem">
+	        <div id="virmemload">Virtual Memory: </div>
+		        <svg  id="virtualMemOutput">
+		        	<polyline id="virtualMemLine" class="redline" points=""/>
+		        	<defs>
+				    <pattern id="smallGrid" width="13" height="13" patternUnits="userSpaceOnUse">
+				      <path d="M 13 0 L 0 0 0 13" fill="none" stroke="gray" stroke-width="0.5"/>
+				    </pattern>
+				    <pattern id="grid" width="130" height="130" patternUnits="userSpaceOnUse">
+				      <rect width="130" height="130" fill="url(#smallGrid)"/>
+				      <path d="M 130 0 L 0 0 0 130" fill="none" stroke="gray" stroke-width="1"/>
+				    </pattern>
+				  </defs>
+				
+				  <rect width="100%" height="100%" fill="url(#grid)" />
+		        </svg >
+	        </li>
+        </ul>
+        <ul id="storageList" class="storageList">
+        	<li class="storageItem">
+		        <div id="storageName" class="storageName">Disk: </div>
+		        <div id="storageUsage" class="storageUsage">Storage Available: </div>
+		        <svg id="storageUsageGraph" class="storageUsageGraph" width='100%' height='65px'>
+				  <g>
+				    <rect fill='#252830' width='92%' height='25'></rect>
+				    <rect fill='#0074d9' id="storageUsed" width='0%' height='25'></rect>
+				  </g>
+				</svg>
+			</li>
+        </ul>
+    </section>
+
+    </body>
+</html>
